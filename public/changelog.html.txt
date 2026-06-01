@@ -1,0 +1,95 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Журнал змін — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="dashboard.html">Кабінет</a>
+        <a href="admin.html">Адмін</a>
+        <a href="changelog.html" class="active">Журнал змін</a>
+        <a href="#" id="nav-logout">Вийти</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <h1>Журнал всіх змін</h1>
+    <div class="filters-bar">
+      <div class="form-group">
+        <label>Розділ</label>
+        <select id="filter-entity" onchange="loadChangelog()">
+          <option value="">Всі</option>
+          <option value="users">Користувачі</option>
+          <option value="schedule">Розклад</option>
+          <option value="bookings">Бронювання</option>
+          <option value="subscriptions">Абонементи</option>
+          <option value="attendance">Відвідування</option>
+          <option value="halls">Зали</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Показати</label>
+        <select id="filter-limit" onchange="loadChangelog()">
+          <option value="50">50 записів</option>
+          <option value="100" selected>100 записів</option>
+          <option value="200">200 записів</option>
+        </select>
+      </div>
+      <button class="btn-outline" onclick="loadChangelog()">🔄 Оновити</button>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Дата/час</th>
+            <th>Користувач</th>
+            <th>Дія</th>
+            <th>Розділ</th>
+            <th>ID запису</th>
+            <th>Деталі</th>
+          </tr>
+        </thead>
+        <tbody id="changelog-body">
+          <tr><td colspan="6" class="loading">Завантаження...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <button class="btn-outline" id="prev-page" onclick="changePage(-1)" disabled>◀ Назад</button>
+      <span id="page-info">Сторінка 1</span>
+      <button class="btn-outline" id="next-page" onclick="changePage(1)">Вперед ▶</button>
+    </div>
+  </main>
+  <!-- Модальне: деталі запису -->
+  <div class="modal-overlay hidden" id="change-detail-modal">
+    <div class="modal modal-wide">
+      <button class="modal-close" onclick="closeModal('change-detail-modal')">✕</button>
+      <h2>Деталі зміни</h2>
+      <div class="diff-container">
+        <div class="diff-col">
+          <h4>Було</h4>
+          <pre id="diff-old"></pre>
+        </div>
+        <div class="diff-col">
+          <h4>Стало</h4>
+          <pre id="diff-new"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/changelog.js"></script>
+</body>
+</html>

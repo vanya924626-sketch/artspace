@@ -1,0 +1,111 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кабінет — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="index.html">Головна</a>
+        <a href="schedule.html">Розклад</a>
+        <a href="dashboard.html" class="active">Кабінет</a>
+        <a href="#" id="nav-logout">Вийти</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <div class="dashboard-header">
+      <h1>Особистий кабінет</h1>
+      <p id="user-greeting"></p>
+    </div>
+    <div class="dashboard-grid">
+      <!-- Танцівник -->
+      <section id="dancer-section" class="hidden">
+        <div class="dash-card">
+          <h2>🎟️ Мої абонементи</h2>
+          <div id="my-subscriptions">
+            <div class="loading">Завантаження...</div>
+          </div>
+          <button class="btn-outline mt-2" onclick="loadMySubscriptions()">Оновити</button>
+        </div>
+        <div class="dash-card">
+          <h2>📋 Мої відвідування</h2>
+          <div id="my-attendance">
+            <div class="loading">Завантаження...</div>
+          </div>
+        </div>
+      </section>
+      <!-- Орендар -->
+      <section id="renter-section" class="hidden">
+        <div class="dash-card">
+          <h2>📅 Мої бронювання</h2>
+          <div id="my-bookings">
+            <div class="loading">Завантаження...</div>
+          </div>
+          <a href="bookings.html" class="btn-primary mt-2">+ Нове бронювання</a>
+        </div>
+      </section>
+      <!-- Хореограф -->
+      <section id="choreo-section" class="hidden">
+        <div class="dash-card">
+          <h2>📓 Журнал відвідувань</h2>
+          <p>Відмічайте присутність студентів і фіксуйте оплату.</p>
+          <a href="journal.html" class="btn-primary">Відкрити журнал</a>
+        </div>
+        <div class="dash-card">
+          <h2>👥 Мої групи</h2>
+          <div id="my-classes">
+            <div class="loading">Завантаження...</div>
+          </div>
+        </div>
+      </section>
+      <!-- Адмін -->
+      <section id="admin-section" class="hidden">
+        <div class="admin-quick-links">
+          <a href="admin.html" class="quick-link-card">
+            <span>⚙️</span><p>Панель адміна</p>
+          </a>
+          <a href="journal.html" class="quick-link-card">
+            <span>📓</span><p>Журнал відвідувань</p>
+          </a>
+          <a href="subscriptions.html" class="quick-link-card">
+            <span>🎟️</span><p>Абонементи</p>
+          </a>
+          <a href="changelog.html" class="quick-link-card">
+            <span>📜</span><p>Журнал змін</p>
+          </a>
+        </div>
+      </section>
+      <!-- Загальне для всіх -->
+      <div class="dash-card">
+        <h2>⚙️ Налаштування</h2>
+        <form onsubmit="changePassword(event)">
+          <div class="form-group">
+            <label>Поточний пароль</label>
+            <input type="password" id="old-pass" required>
+          </div>
+          <div class="form-group">
+            <label>Новий пароль</label>
+            <input type="password" id="new-pass" required minlength="6">
+          </div>
+          <div id="pass-msg" class="hidden"></div>
+          <button type="submit" class="btn-primary">Змінити пароль</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

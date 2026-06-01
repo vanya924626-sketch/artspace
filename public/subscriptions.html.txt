@@ -1,0 +1,122 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Абонементи — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="dashboard.html">Кабінет</a>
+        <a href="subscriptions.html" class="active">Абонементи</a>
+        <a href="#" id="nav-logout">Вийти</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <div class="page-header">
+      <h1>Абонементи</h1>
+      <button class="btn-primary" id="add-sub-btn" onclick="openAddSub()" style="display:none">+ Додати абонемент</button>
+    </div>
+    <div class="filters-bar">
+      <div class="form-group">
+        <label>Пошук танцівника</label>
+        <input type="text" id="search-user" placeholder="Ім'я або email..." oninput="filterSubs()">
+      </div>
+      <div class="form-group">
+        <label>Тип</label>
+        <select id="filter-type" onchange="filterSubs()">
+          <option value="">Всі</option>
+          <option value="single">Разовий</option>
+          <option value="8">8 занять</option>
+          <option value="16">16 занять</option>
+          <option value="unlimited">Безліміт</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Статус оплати</label>
+        <select id="filter-paid" onchange="filterSubs()">
+          <option value="">Всі</option>
+          <option value="1">Оплачено</option>
+          <option value="0">Не оплачено</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Танцівник</th>
+            <th>Тип</th>
+            <th>Використано</th>
+            <th>Залишок</th>
+            <th>Дійсний до</th>
+            <th>Оплата</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody id="subs-body">
+          <tr><td colspan="7" class="loading">Завантаження...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <!-- Модальне: додати абонемент -->
+  <div class="modal-overlay hidden" id="add-sub-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('add-sub-modal')">✕</button>
+      <h2>Додати абонемент</h2>
+      <form id="sub-form" onsubmit="saveSub(event)">
+        <div class="form-group">
+          <label>Танцівник</label>
+          <select id="sub-user" required></select>
+        </div>
+        <div class="form-group">
+          <label>Тип абонементу</label>
+          <select id="sub-type" required>
+            <option value="single">Разовий — 200 грн</option>
+            <option value="8">8 занять — 1400 грн</option>
+            <option value="16">16 занять — 2600 грн</option>
+            <option value="unlimited">Безліміт — 3500 грн/міс</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Спосіб оплати</label>
+          <select id="sub-payment">
+            <option value="cash">Готівка</option>
+            <option value="card">Картка (термінал)</option>
+            <option value="online">Онлайн (LiqPay)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Дійсний з</label>
+            <input type="date" id="sub-from" required>
+          </div>
+          <div class="form-group">
+            <label>Дійсний до</label>
+            <input type="date" id="sub-to" required>
+          </div>
+        </div>
+        <div id="sub-error" class="form-error hidden"></div>
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeModal('add-sub-modal')">Скасувати</button>
+          <button type="submit" class="btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/subscriptions.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Журнал відвідувань — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="dashboard.html">Кабінет</a>
+        <a href="journal.html" class="active">Журнал</a>
+        <a href="#" id="nav-logout">Вийти</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <h1>Журнал відвідувань</h1>
+    <div class="filters-bar">
+      <div class="form-group">
+        <label>Дата</label>
+        <input type="date" id="filter-date" onchange="loadJournal()">
+      </div>
+      <div class="form-group">
+        <label>Заняття</label>
+        <select id="filter-class" onchange="loadJournal()">
+          <option value="">Всі заняття</option>
+        </select>
+      </div>
+    </div>
+    <div class="journal-wrapper">
+      <table class="data-table" id="journal-table">
+        <thead>
+          <tr>
+            <th>Танцівник</th>
+            <th>Заняття</th>
+            <th>Зал</th>
+            <th>Дата</th>
+            <th>Присутній</th>
+            <th>Абонемент</th>
+            <th>Оплата</th>
+            <th>Дія</th>
+          </tr>
+        </thead>
+        <tbody id="journal-body">
+          <tr><td colspan="8" class="loading">Оберіть дату для завантаження</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-2">
+      <button class="btn-primary" onclick="openAddAttendance()">+ Відмітити студента</button>
+    </div>
+  </main>
+  <!-- Модальне: відмітити відвідування -->
+  <div class="modal-overlay hidden" id="attendance-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('attendance-modal')">✕</button>
+      <h2>Відмітити відвідування</h2>
+      <form id="attendance-form" onsubmit="saveAttendance(event)">
+        <div class="form-group">
+          <label>Танцівник</label>
+          <select id="att-user" required></select>
+        </div>
+        <div class="form-group">
+          <label>Заняття</label>
+          <select id="att-class" required></select>
+        </div>
+        <div class="form-group">
+          <label>Дата</label>
+          <input type="date" id="att-date" required>
+        </div>
+        <div class="form-group">
+          <label>Присутній</label>
+          <select id="att-present">
+            <option value="1">Так</option>
+            <option value="0">Ні</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Абонемент</label>
+          <select id="att-sub">
+            <option value="">— без абонементу —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Сума оплати (грн)</label>
+          <input type="number" id="att-amount" value="0" min="0">
+        </div>
+        <div class="form-group">
+          <label>Примітка</label>
+          <input type="text" id="att-notes" placeholder="Необов'язково">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeModal('attendance-modal')">Скасувати</button>
+          <button type="submit" class="btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/journal.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+css
+
+
+/* ── Змінні ───────────────────────────────────── */
+:root {
+  --primary:   #6c3fc5;
+  --primary-d: #5530a0;
+  --accent:    #e8b4d8;
+  --bg:        #f8f6fb;
+  --surface:   #ffffff;
+  --border:    #e2ddf0;
+  --text:      #2d2340;
+  --text-mute: #7a6e8a;
+  --success:   #22c55e;
+  --danger:    #ef4444;
+  --warning:   #f59e0b;
+  --radius:    12px;
+  --shadow:    0 2px 16px rgba(108,63,197,.10);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.hidden    { display: none !important; }
+.mt-2      { margin-top: 1.5rem; }
+.w-full    { width: 100%; }
+/* ── Хедер ────────────────────────────────────── */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow);
+}
+.header-inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+.logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; }
+.logo a { text-decoration: none; }
+.logo-art   { color: var(--primary); }
+.logo-space { color: var(--text); }
+.logo-sub   { font-size: .75rem; font-weight: 400; color: var(--text-mute); margin-left: 4px; }
+.main-nav { display: flex; align-items: center; gap: 8px; }
+.main-nav a {
+  padding: 6px 14px; border-radius: 8px;
+  color: var(--text); font-size: .95rem;
+  transition: background .15s;
+}
+.main-nav a:hover, .main-nav a.active {
+  background: var(--bg); text-decoration: none;
+}
+.main-nav a.active { color: var(--primary); font-weight: 600; }
+/* ── Кнопки ───────────────────────────────────── */
+.btn-primary, .btn-outline, .btn-danger, .btn-sm, .btn-icon, .link-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 9px 20px; border-radius: 8px;
+  font-size: .95rem; font-weight: 600;
+  cursor: pointer; transition: all .18s;
+  border: 2px solid transparent; line-height: 1;
+}
+.btn-primary  { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-d); }
+.btn-outline  { background: transparent; color: var(--primary); border-color: var(--primary); }
+.btn-outline:hover { background: var(--bg); }
+.btn-danger   { background: var(--danger); color: #fff; border-color: var(--danger); }
+.btn-danger:hover { background: #dc2626; }
+.btn-sm       { padding: 5px 12px; font-size: .82rem; }
+.btn-icon     { padding: 6px 12px; background: var(--surface); border-color: var(--border); color: var(--text); }
+.btn-icon:hover { background: var(--bg); }
+.link-btn     { background: none; border: none; padding: 0; color: var(--primary); font-weight: 600; }
+/* ── Герой ────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #9b59b6 60%, var(--accent) 100%);
+  color: #fff; padding: 100px 20px;
+  text-align: center;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 16px; }
+.hero p   { font-size: 1.2rem; opacity: .9; margin-bottom: 36px; }
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero-btns .btn-primary { background: #fff; color: var(--primary); }
+.hero-btns .btn-primary:hover { background: var(--bg); }
+.hero-btns .btn-outline { border-color: #fff; color: #fff; }
+.hero-btns .btn-outline:hover { background: rgba(255,255,255,.15); }
+/* ── Переваги ─────────────────────────────────── */
+.features { padding: 80px 20px; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+.feature-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 32px 24px; text-align: center;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+  transition: transform .2s;
+}
+.feature-card:hover { transform: translateY(-4px); }
+.feature-icon { font-size: 2.5rem; margin-bottom: 16px; }
+.feature-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--primary); }
+.feature-card p  { color: var(--text-mute); font-size: .95rem; }
+/* ── Про студію ───────────────────────────────── */
+.about { background: var(--surface); padding: 80px 20px; border-top: 1px solid var(--border); }
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px; align-items: center;
+}
+.about-text h2 { font-size: 2rem; margin-bottom: 16px; color: var(--primary); }
+.about-text p  { color: var(--text-mute); margin-bottom: 12px; }
+.about-text .btn-primary { margin-top: 12px; }
+.about-stats   { display: flex; gap: 32px; }
+.stat          { text-align: center; }
+.stat-num      { display: block; font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+.stat-label    { font-size: .85rem; color: var(--text-mute); }
+/* ── Контакти ─────────────────────────────────── */
+.contacts { padding: 60px 20px; text-align: center; }
+.contacts h2 { font-size: 2rem; margin-bottom: 32px; }
+.contacts-grid {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 24px;
+}
+.contact-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 32px;
+  font-size: 1rem; box-shadow: var(--shadow);
+}
+/* ── Футер ────────────────────────────────────── */
+.site-footer {
+  background: var(--text); color: #fff;
+  text-align: center; padding: 24px 20px;
+  font-size: .9rem; opacity: .9;
+}
+/* ── Форми ────────────────────────────────────── */
+.form-group  { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group label { font-size: .87rem; font-weight: 600; color: var(--text-mute); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 14px; border: 1.5px solid var(--border);
+  border-radius: 8px; font-size: .97rem;
+  background: var(--surface); color: var(--text);
+  transition: border-color .15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none; border-color: var(--primary);
+}
+.form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
+.form-error   { color: var(--danger); font-size: .88rem; padding: 8px 12px; background: #fef2f2; border-radius: 6px; }
+.form-success { color: #15803d; font-size: .88rem; padding: 8px 12px; background: #f0fdf4; border-radius: 6px; }
+/* ── Модальні ─────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px;
+}
+.modal {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 36px; width: 100%; max-width: 480px;
+  max-height: 90vh; overflow-y: auto;
+  position: relative; box-shadow: 0 8px 40px rgba(0,0,0,.2);
+}
+.modal-wide { max-width: 720px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; font-size: 1.3rem;
+  cursor: pointer; color: var(--text-mute);
+}
+.modal h2 { margin-bottom: 20px; font-size: 1.4rem; }
+.modal-tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+.tab-btn {
+  flex: 1; padding: 8px; border: 2px solid var(--border);
+  border-radius: 8px; background: none; cursor: pointer;
+  font-weight: 600; color: var(--text-mute); transition: all .15s;
+}
+.tab-btn.active { border-color: var(--primary); color: var(--primary); background: var(--bg); }
+/* ── Таблиці ──────────────────────────────────── */
+.table-wrapper { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.data-table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+.data-table th {
+  background: var(--bg); padding: 12px 16px;
+  text-align: left; font-size: .82rem;
+  font-weight: 700; color: var(--text-mute);
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.data-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg); }
+.row-unpaid td { background: #fff7ed; }
+/* ── Бейджі ───────────────────────────────────── */
+.badge {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 20px; font-size: .78rem; font-weight: 700;
+}
+.badge-green  { background: #dcfce7; color: #15803d; }
+.badge-red    { background: #fee2e2; color: #b91c1c; }
+.badge-yellow { background: #fef9c3; color: #854d0e; }
+.badge-role-admin         { background: #ede9fe; color: #6d28d9; }
+.badge-role-choreographer { background: #dbeafe; color: #1d4ed8; }
+.badge-role-dancer        { background: #dcfce7; color: #15803d; }
+.badge-role-renter        { background: #fef3c7; color: #92400e; }
+/* ── Сторінки ─────────────────────────────────── */
+.page-main   { padding: 40px 20px; min-height: 70vh; }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+.page-header h1 { font-size: 1.8rem; }
+.page-desc   { color: var(--text-mute); margin-bottom: 28px; }
+.section-title { font-size: 1.4rem; margin: 36px 0 16px; }
+.filters-bar {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  align-items: flex-end; margin-bottom: 20px;
+  background: var(--surface); padding: 16px;
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+.filters-bar .form-group { margin-bottom: 0; }
+/* ── Дашборд ──────────────────────────────────── */
+.dashboard-header { margin-bottom: 28px; }
+.dashboard-header h1 { font-size: 1.8rem; }
+.dashboard-header p  { color: var(--text-mute); }
+.dashboard-grid { display: flex; flex-direction: column; gap: 24px; }
+.dash-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 24px; border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.dash-card h2 { font-size: 1.15rem; margin-bottom: 16px; color: var(--primary); }
+.dash-card h3 { font-size: 1rem; margin-bottom: 12px; }
+.admin-quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+.quick-link-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  text-align: center; transition: all .18s;
+  text-decoration: none; color: var(--text);
+}
+.quick-link-card:hover { background: var(--surface); transform: translateY(-2px); box-shadow: var(--shadow); text-decoration: none; }
+.quick-link-card span { font-size: 2rem; display: block; margin-bottom: 8px; }
+.quick-link-card p    { font-weight: 600; font-size: .9rem; }
+/* ── Абонементи ───────────────────────────────── */
+.sub-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px; margin-bottom: 12px;
+}
+.sub-unpaid { border-color: var(--warning); background: #fffbeb; }
+.sub-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.progress-bar {
+  height: 8px; background: var(--border);
+  border-radius: 4px; margin-bottom: 4px; overflow: hidden;
+}
+.progress-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width .4s; }
+/* ── Розклад ──────────────────────────────────── */
+.schedule-wrapper  { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 16px; }
+.schedule-table    { width: 100%; border-collapse: collapse; min-width: 700px; }
+.schedule-table th { background: var(--bg); padding: 10px 8px; font-size: .82rem; text-align: center; border-bottom: 1px solid var(--border); }
+.schedule-table td { border: 1px solid var(--border); height: 52px; vertical-align: top; padding: 2px; }
+.time-col          { font-size: .8rem; color: var(--text-mute); text-align: center; width: 52px; background: var(--bg); }
+.cell-class        { background: #ede9fe; }
+.cell-free         { background: #f0fdf4; }
+.cell-event        { font-size: .75rem; padding: 3px 5px; line-height: 1.3; }
+.cell-event strong { display: block; color: var(--primary); }
+.cell-event small  { display: block; color: var(--text-mute); }
+.cell-edit-btn     { background: none; border: none; cursor: pointer; font-size: .7rem; }
+.schedule-controls { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.week-nav          { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.schedule-legend   { display: flex; gap: 20px; font-size: .85rem; margin-top: 8px; }
+.legend-item       { display: flex; align-items: center; gap: 6px; }
+.dot               { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot-class         { background: var(--primary); }
+.dot-booked        { background: var(--warning); }
+.dot-free          { background: var(--success); }
+.admin-panel       { margin-top: 28px; background: var(--surface); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
+/* ── Бронювання ───────────────────────────────── */
+.booking-layout  { display: grid; grid-template-columns: 320px 1fr; gap: 24px; margin-bottom: 40px; }
+.booking-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.booking-main    { display: flex; flex-direction: column; gap: 16px; }
+.hall-info       { margin-top: 8px; font-size: .9rem; color: var(--text-mute); }
+.price-tag       { color: var(--primary); font-weight: 700; }
+.halls-list      { display: flex; flex-direction: column; gap: 10px; }
+.hall-card {
+  border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 12px; cursor: pointer; transition: all .15s;
+}
+.hall-card:hover { border-color: var(--primary); background: var(--bg); }
+.hall-card strong { display: block; margin-bottom: 4px; }
+.hall-card p     { font-size: .85rem; color: var(--text-mute); margin: 2px 0; }
+.availability-legend { display: flex; gap: 16px; font-size: .83rem; margin-bottom: 12px; }
+.availability-grid   { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 6px; }
+.time-slot {
+  border-radius: 6px; padding: 8px 6px;
+  text-align: center; font-size: .78rem;
+}
+.slot-free   { background: #dcfce7; color: #15803d; }
+.slot-class  { background: #ede9fe; color: var(--primary); }
+.slot-booked { background: #fef9c3; color: #854d0e; }
+.slot-time   { display: block; font-weight: 700; }
+.slot-label  { display: block; font-size: .72rem; margin-top: 2px; }
+.price-preview { padding: 12px; background: #f0fdf4; border-radius: 8px; color: #15803d; font-size: .95rem; margin-bottom: 12px; }
+.booking-info-block { background: var(--bg); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.booking-info-block p { margin-bottom: 6px; }
+/* ── Адмін ────────────────────────────────────── */
+.admin-tabs      { display: flex; gap: 4px; margin-bottom: 24px; flex-wrap: wrap; }
+.admin-tab-content { animation: fadeIn .2s; }
+.tab-header      { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.tab-header h2   { font-size: 1.3rem; }
+.stats-grid      { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat-card span  { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; }
+.stat-card p     { font-size: .85rem; color: var(--text-mute); margin-top: 6px; }
+/* ── Журнал змін ──────────────────────────────── */
+.pagination { display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 24px; }
+.diff-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.diff-col h4    { margin-bottom: 8px; font-size: .9rem; color: var(--text-mute); }
+.diff-col pre   {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px;
+  font-size: .8rem; overflow-x: auto;
+  white-space: pre-wrap; word-break: break-all;
+}
+/* ── Клас-картки ──────────────────────────────── */
+.class-item {
+  display: flex; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: .93rem;
+}
+.class-item:last-child { border-bottom: none; }
+.class-item span { color: var(--text-mute); font-size: .85rem; }
+/* ── Анімації ─────────────────────────────────── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+/* ── Адаптив ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .booking-layout { grid-template-columns: 1fr; }
+  .about-inner    { grid-template-columns: 1fr; }
+  .about-stats    { justify-content: center; }
+}
+@media (max-width: 600px) {
+  .main-nav { gap: 4px; }
+  .main-nav a { padding: 6px 8px; font-size: .85rem; }
+  .hero { padding: 60px 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .diff-container { grid-template-columns: 1fr; }
+  .admin-tabs { flex-direction: column; }
+  .modal { padding: 24px 16px; }
+}

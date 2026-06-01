@@ -1,0 +1,177 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оренда залів — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="index.html">Головна</a>
+        <a href="schedule.html">Розклад</a>
+        <a href="bookings.html" class="active">Оренда залів</a>
+        <a href="dashboard.html" id="nav-cabinet" class="hidden">Кабінет</a>
+        <a href="#" id="nav-logout" class="hidden">Вийти</a>
+        <button id="nav-login" class="btn-primary" onclick="openModal('login-modal')">Увійти</button>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <h1>Оренда залів</h1>
+    <p class="page-desc">Оберіть зал та вільний час. Після бронювання адміністратор підтвердить заявку.</p>
+    <div class="booking-layout">
+      <div class="booking-sidebar">
+        <div class="dash-card">
+          <h3>Параметри пошуку</h3>
+          <div class="form-group">
+            <label>Зал</label>
+            <select id="book-hall" onchange="loadAvailability()">
+              <option value="">Оберіть зал</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Дата</label>
+            <input type="date" id="book-date" onchange="loadAvailability()">
+          </div>
+          <div id="hall-info" class="hall-info hidden">
+            <p id="hall-desc"></p>
+            <p class="price-tag" id="hall-price"></p>
+          </div>
+        </div>
+        <div class="dash-card">
+          <h3>Зали та ціни</h3>
+          <div id="halls-list" class="halls-list">
+            <div class="loading">Завантаження...</div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-main">
+        <div class="dash-card">
+          <h3>Доступність залу</h3>
+          <div class="availability-legend">
+            <span><span class="dot dot-class"></span> Заняття</span>
+            <span><span class="dot dot-booked"></span> Орендовано</span>
+            <span><span class="dot dot-free"></span> Вільно</span>
+          </div>
+          <div id="availability-grid" class="availability-grid">
+            <p class="empty-state">Оберіть зал та дату</p>
+          </div>
+        </div>
+        <div id="booking-form-section" class="dash-card hidden">
+          <h3>Забронювати час</h3>
+          <form id="booking-form" onsubmit="submitBooking(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Початок</label>
+                <input type="time" id="book-start" required onchange="calcPrice()">
+              </div>
+              <div class="form-group">
+                <label>Кінець</label>
+                <input type="time" id="book-end" required onchange="calcPrice()">
+              </div>
+            </div>
+            <div id="price-preview" class="price-preview hidden">
+              Орієнтовна вартість: <strong id="price-value"></strong> грн
+            </div>
+            <div id="book-error" class="form-error hidden"></div>
+            <div id="book-success" class="form-success hidden"></div>
+            <button type="submit" class="btn-primary w-full">Надіслати заявку</button>
+          </form>
+        </div>
+        <div id="login-prompt" class="dash-card">
+          <p>Для бронювання необхідно
+            <button class="link-btn" onclick="openModal('login-modal')">увійти</button>
+            або зареєструватись як орендар.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Мої бронювання -->
+    <div id="my-bookings-section" class="hidden">
+      <h2 class="section-title">Мої бронювання</h2>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Зал</th>
+              <th>Дата</th>
+              <th>Час</th>
+              <th>Вартість</th>
+              <th>Статус</th>
+              <th>Оплата</th>
+              <th>Дія</th>
+            </tr>
+          </thead>
+          <tbody id="my-bookings-body">
+            <tr><td colspan="7" class="loading">Завантаження...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <!-- Модальне: логін -->
+  <div class="modal-overlay hidden" id="login-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('login-modal')">✕</button>
+      <div class="modal-tabs">
+        <button class="tab-btn active" onclick="switchTab('login')">Увійти</button>
+        <button class="tab-btn" onclick="switchTab('register')">Реєстрація</button>
+      </div>
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+        <h2>Вхід</h2>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" required>
+        </div>
+        <div class="form-group">
+          <label>Пароль</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <div id="login-error" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary w-full">Увійти</button>
+      </form>
+      <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+        <h2>Реєстрація</h2>
+        <div class="form-group">
+          <label>Ім'я та прізвище</label>
+          <input type="text" id="reg-name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" required>
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" id="reg-phone">
+        </div>
+        <div class="form-group">
+          <label>Роль</label>
+          <select id="reg-role">
+            <option value="dancer">Танцівник</option>
+            <option value="renter">Орендар залу</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Пароль</label>
+          <input type="password" id="reg-password" required minlength="6">
+        </div>
+        <div id="reg-error" class="form-error hidden"></div>
+        <div id="reg-success" class="form-success hidden"></div>
+        <button type="submit" class="btn-primary w-full">Зареєструватись</button>
+      </form>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/bookings.js"></script>
+</body>
+</html>

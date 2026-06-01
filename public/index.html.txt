@@ -1,0 +1,150 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtSpace Dance Lviv</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-art">Art</span><span class="logo-space">Space</span>
+        <span class="logo-sub">Dance Lviv</span>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Головна</a>
+        <a href="schedule.html">Розклад</a>
+        <a href="bookings.html">Оренда залів</a>
+        <a href="dashboard.html" id="nav-cabinet" class="hidden">Кабінет</a>
+        <a href="#" id="nav-logout" class="hidden">Вийти</a>
+        <button id="nav-login" class="btn-primary" onclick="openModal('login-modal')">Увійти</button>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Танцюй. Твори. Надихай.</h1>
+      <p>Танцювальна студія ArtSpace у серці Львова</p>
+      <div class="hero-btns">
+        <a href="schedule.html" class="btn-primary">Переглянути розклад</a>
+        <a href="bookings.html" class="btn-outline">Орендувати зал</a>
+      </div>
+    </div>
+  </section>
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>4 сучасні зали</h3>
+        <p>Просторі зали з дзеркалами, паркетом та сучасним обладнанням для будь-якого стилю танцю</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <h3>Зручні абонементи</h3>
+        <p>Разове заняття, абонементи на 8, 16 занять або безліміт — обирайте зручний формат</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Онлайн розклад</h3>
+        <p>Актуальний розклад всіх залів у реальному часі. Бачте вільні та зайняті години</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>Особистий кабінет</h3>
+        <p>Відстежуйте свої заняття, абонементи та оплачуйте онлайн</p>
+      </div>
+    </div>
+  </section>
+  <section class="about">
+    <div class="container about-inner">
+      <div class="about-text">
+        <h2>Про студію</h2>
+        <p>ArtSpace Dance Lviv — це простір для тих, хто живе танцем. Ми пропонуємо заняття для дітей і дорослих, професіоналів і початківців.</p>
+        <p>У нашій студії працюють досвідчені хореографи, а 4 сучасні зали дозволяють проводити заняття одночасно в різних напрямках.</p>
+        <a href="schedule.html" class="btn-primary">Записатись на заняття</a>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Зали</span></div>
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Хореографів</span></div>
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Танцівників</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="contacts" id="contacts">
+    <div class="container">
+      <h2>Контакти</h2>
+      <div class="contacts-grid">
+        <div class="contact-item">📍 м. Львів, вул. Прикладна, 1</div>
+        <div class="contact-item">📞 +38 (0XX) XXX-XX-XX</div>
+        <div class="contact-item">✉️ info@artspace.lviv.ua</div>
+        <div class="contact-item">🕐 Пн–Нд: 08:00–22:00</div>
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2024 ArtSpace Dance Lviv. Всі права захищені.</p>
+    </div>
+  </footer>
+  <!-- Модальне вікно входу -->
+  <div class="modal-overlay hidden" id="login-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('login-modal')">✕</button>
+      <div class="modal-tabs">
+        <button class="tab-btn active" onclick="switchTab('login')">Увійти</button>
+        <button class="tab-btn" onclick="switchTab('register')">Реєстрація</button>
+      </div>
+      <!-- Форма входу -->
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+        <h2>Вхід</h2>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Пароль</label>
+          <input type="password" id="login-password" required placeholder="••••••••">
+        </div>
+        <div id="login-error" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary w-full">Увійти</button>
+      </form>
+      <!-- Форма реєстрації -->
+      <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+        <h2>Реєстрація</h2>
+        <div class="form-group">
+          <label>Ім'я та прізвище</label>
+          <input type="text" id="reg-name" required placeholder="Іван Петренко">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="reg-email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" id="reg-phone" placeholder="+380XXXXXXXXX">
+        </div>
+        <div class="form-group">
+          <label>Я реєструюсь як</label>
+          <select id="reg-role">
+            <option value="dancer">Танцівник</option>
+            <option value="renter">Орендар залу</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Пароль</label>
+          <input type="password" id="reg-password" required placeholder="Мінімум 6 символів" minlength="6">
+        </div>
+        <div id="reg-error" class="form-error hidden"></div>
+        <div id="reg-success" class="form-success hidden"></div>
+        <button type="submit" class="btn-primary w-full">Зареєструватись</button>
+      </form>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель адміна — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="dashboard.html">Кабінет</a>
+        <a href="admin.html" class="active">Адмін</a>
+        <a href="changelog.html">Журнал змін</a>
+        <a href="#" id="nav-logout">Вийти</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <h1>Панель адміністратора</h1>
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="showAdminTab('users')">👥 Користувачі</button>
+      <button class="tab-btn" onclick="showAdminTab('halls')">🏛️ Зали</button>
+      <button class="tab-btn" onclick="showAdminTab('bookings')">📅 Бронювання</button>
+      <button class="tab-btn" onclick="showAdminTab('stats')">📊 Статистика</button>
+    </div>
+    <!-- Користувачі -->
+    <div id="tab-users" class="admin-tab-content">
+      <div class="tab-header">
+        <h2>Користувачі</h2>
+        <button class="btn-primary" onclick="openAddUser()">+ Додати</button>
+      </div>
+      <div class="filters-bar">
+        <input type="text" id="user-search" placeholder="Пошук..." oninput="filterUsers()">
+        <select id="user-role-filter" onchange="filterUsers()">
+          <option value="">Всі ролі</option>
+          <option value="admin">Адмін</option>
+          <option value="choreographer">Хореограф</option>
+          <option value="dancer">Танцівник</option>
+          <option value="renter">Орендар</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>Ім'я</th><th>Email</th><th>Роль</th><th>Телефон</th><th>Дата реєстрації</th><th>Дії</th></tr>
+          </thead>
+          <tbody id="users-body">
+            <tr><td colspan="6" class="loading">Завантаження...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Зали -->
+    <div id="tab-halls" class="admin-tab-content hidden">
+      <h2>Зали</h2>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>Назва</th><th>Опис</th><th>Місткість</th><th>Ціна/год (грн)</th><th>Дії</th></tr>
+          </thead>
+          <tbody id="halls-body">
+            <tr><td colspan="5" class="loading">Завантаження...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Бронювання -->
+    <div id="tab-bookings" class="admin-tab-content hidden">
+      <h2>Всі бронювання</h2>
+      <div class="filters-bar">
+        <select id="booking-status-filter" onchange="filterBookings()">
+          <option value="">Всі статуси</option>
+          <option value="pending">Очікують</option>
+          <option value="confirmed">Підтверджені</option>
+          <option value="rejected">Відхилені</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>Орендар</th><th>Зал</th><th>Дата</th><th>Час</th><th>Вартість</th><th>Статус</th><th>Оплата</th><th>Дії</th></tr>
+          </thead>
+          <tbody id="bookings-body">
+            <tr><td colspan="8" class="loading">Завантаження...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Статистика -->
+    <div id="tab-stats" class="admin-tab-content hidden">
+      <h2>Статистика</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><span id="stat-users">—</span><p>Користувачів</p></div>
+        <div class="stat-card"><span id="stat-dancers">—</span><p>Танцівників</p></div>
+        <div class="stat-card"><span id="stat-bookings">—</span><p>Бронювань цього місяця</p></div>
+        <div class="stat-card"><span id="stat-revenue">—</span><p>Дохід цього місяця (грн)</p></div>
+        <div class="stat-card"><span id="stat-subs">—</span><p>Активних абонементів</p></div>
+        <div class="stat-card"><span id="stat-attendance">—</span><p>Відвідувань цього місяця</p></div>
+      </div>
+    </div>
+  </main>
+  <!-- Модальне: додати/редагувати користувача -->
+  <div class="modal-overlay hidden" id="user-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('user-modal')">✕</button>
+      <h2 id="user-modal-title">Додати користувача</h2>
+      <form id="user-form" onsubmit="saveUser(event)">
+        <input type="hidden" id="user-id">
+        <div class="form-group">
+          <label>Ім'я та прізвище</label>
+          <input type="text" id="user-name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="user-email" required>
+        </div>
+        <div class="form-group" id="user-pass-group">
+          <label>Пароль</label>
+          <input type="password" id="user-password" minlength="6">
+        </div>
+        <div class="form-group">
+          <label>Роль</label>
+          <select id="user-role">
+            <option value="dancer">Танцівник</option>
+            <option value="choreographer">Хореограф</option>
+            <option value="renter">Орендар</option>
+            <option value="admin">Адмін</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" id="user-phone">
+        </div>
+        <div id="user-error" class="form-error hidden"></div>
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeModal('user-modal')">Скасувати</button>
+          <button type="submit" class="btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Модальне: редагувати зал -->
+  <div class="modal-overlay hidden" id="hall-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('hall-modal')">✕</button>
+      <h2>Редагувати зал</h2>
+      <form id="hall-form" onsubmit="saveHall(event)">
+        <input type="hidden" id="hall-id">
+        <div class="form-group">
+          <label>Назва</label>
+          <input type="text" id="hall-name" required>
+        </div>
+        <div class="form-group">
+          <label>Опис</label>
+          <input type="text" id="hall-description">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Місткість</label>
+            <input type="number" id="hall-capacity" min="1">
+          </div>
+          <div class="form-group">
+            <label>Ціна/год (грн)</label>
+            <input type="number" id="hall-price" min="0">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeModal('hall-modal')">Скасувати</button>
+          <button type="submit" class="btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Модальне: підтвердити/відхилити бронювання -->
+  <div class="modal-overlay hidden" id="booking-action-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('booking-action-modal')">✕</button>
+      <h2 id="booking-action-title">Дія з бронюванням</h2>
+      <div id="booking-action-info" class="booking-info-block"></div>
+      <div class="form-group">
+        <label>Примітка для орендаря (необов'язково)</label>
+        <textarea id="booking-note" rows="3"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-danger" onclick="setBookingStatus('rejected')">❌ Відхилити</button>
+        <button class="btn-primary" onclick="setBookingStatus('confirmed')">✅ Підтвердити</button>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

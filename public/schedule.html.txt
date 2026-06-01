@@ -1,0 +1,140 @@
+html
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Розклад — ArtSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><span class="logo-art">Art</span><span class="logo-space">Space</span></a></div>
+      <nav class="main-nav">
+        <a href="index.html">Головна</a>
+        <a href="schedule.html" class="active">Розклад</a>
+        <a href="bookings.html">Оренда залів</a>
+        <a href="dashboard.html" id="nav-cabinet" class="hidden">Кабінет</a>
+        <a href="#" id="nav-logout" class="hidden">Вийти</a>
+        <button id="nav-login" class="btn-primary" onclick="openModal('login-modal')">Увійти</button>
+      </nav>
+    </div>
+  </header>
+  <main class="container page-main">
+    <div class="page-header">
+      <h1>Розклад занять</h1>
+      <div class="schedule-controls">
+        <div class="week-nav">
+          <button onclick="changeWeek(-1)" class="btn-icon">◀</button>
+          <span id="week-label"></span>
+          <button onclick="changeWeek(1)" class="btn-icon">▶</button>
+        </div>
+        <div class="hall-filter">
+          <label>Зал:</label>
+          <select id="hall-select" onchange="loadSchedule()">
+            <option value="">Всі зали</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- Таблиця розкладу -->
+    <div class="schedule-wrapper">
+      <table class="schedule-table" id="schedule-table">
+        <thead>
+          <tr>
+            <th>Час</th>
+            <th id="day-0"></th>
+            <th id="day-1"></th>
+            <th id="day-2"></th>
+            <th id="day-3"></th>
+            <th id="day-4"></th>
+            <th id="day-5"></th>
+            <th id="day-6"></th>
+          </tr>
+        </thead>
+        <tbody id="schedule-body">
+          <tr><td colspan="8" class="loading">Завантаження...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Легенда -->
+    <div class="schedule-legend">
+      <span class="legend-item"><span class="dot dot-class"></span> Заняття</span>
+      <span class="legend-item"><span class="dot dot-booked"></span> Оренда</span>
+      <span class="legend-item"><span class="dot dot-free"></span> Вільно</span>
+    </div>
+    <!-- Панель редагування (тільки адмін) -->
+    <div id="admin-panel" class="admin-panel hidden">
+      <h2>Редагування розкладу</h2>
+      <button class="btn-primary" onclick="openAddClass()">+ Додати заняття</button>
+    </div>
+  </main>
+  <!-- Модальне: додати заняття -->
+  <div class="modal-overlay hidden" id="add-class-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('add-class-modal')">✕</button>
+      <h2 id="class-modal-title">Додати заняття</h2>
+      <form id="class-form" onsubmit="saveClass(event)">
+        <input type="hidden" id="class-id">
+        <div class="form-group">
+          <label>Зал</label>
+          <select id="class-hall" required></select>
+        </div>
+        <div class="form-group">
+          <label>Хореограф</label>
+          <select id="class-choreo"></select>
+        </div>
+        <div class="form-group">
+          <label>Назва заняття</label>
+          <input type="text" id="class-title" required placeholder="Хіп-хоп, Балет...">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Початок</label>
+            <input type="time" id="class-start" required>
+          </div>
+          <div class="form-group">
+            <label>Кінець</label>
+            <input type="time" id="class-end" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Тип</label>
+          <select id="class-recurring" onchange="toggleDateField()">
+            <option value="1">Щотижня</option>
+            <option value="0">Разове</option>
+          </select>
+        </div>
+        <div class="form-group" id="day-group">
+          <label>День тижня</label>
+          <select id="class-day">
+            <option value="0">Понеділок</option>
+            <option value="1">Вівторок</option>
+            <option value="2">Середа</option>
+            <option value="3">Четвер</option>
+            <option value="4">П'ятниця</option>
+            <option value="5">Субота</option>
+            <option value="6">Неділя</option>
+          </select>
+        </div>
+        <div class="form-group hidden" id="date-group">
+          <label>Дата</label>
+          <input type="date" id="class-date">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeModal('add-class-modal')">Скасувати</button>
+          <button type="submit" class="btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container"><p>© 2024 ArtSpace Dance Lviv</p></div>
+  </footer>
+  <script src="js/auth.js"></script>
+  <script src="js/schedule.js"></script>
+</body>
+</html>
