@@ -3,26 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoutes = require("./routes/auth.routes");
-const scheduleRoutes = require("./routes/schedule.routes");
-const bookingRoutes = require("./routes/booking.routes");
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/auth", authRoutes);
-app.use("/api/schedule", scheduleRoutes);
-app.use("/api/booking", bookingRoutes);
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/class", require("./routes/class.routes"));
+app.use("/api/rental", require("./routes/rental.routes"));
+app.use("/api/attendance", require("./routes/attendance.routes"));
+app.use("/api/admin", require("./routes/admin.routes"));
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+  .then(() => console.log("DB connected"));
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(process.env.PORT || 3000);
