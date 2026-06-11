@@ -15,7 +15,7 @@ app.use("/api/rental", require("./routes/rental.routes"));
 app.use("/api/attendance", require("./routes/attendance.routes"));
 app.use("/api/admin", require("./routes/admin.routes"));
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.DB_PATH)
   .then(() => console.log("DB connected"));
 
 app.listen(process.env.PORT || 3000);
