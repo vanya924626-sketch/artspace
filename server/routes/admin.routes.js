@@ -1,7 +1,9 @@
 const router = require("express").Router();
 
 router.get("/", async (req, res) => {
-  res.json([]);
+  res.json({
+    message: "Admin API works"
+  });
 });
 
-module.exports = router;;
+module.exports = router;
